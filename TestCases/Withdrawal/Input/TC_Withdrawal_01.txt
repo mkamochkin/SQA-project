@@ -1,1 +1,4 @@
-[name]
+login
+admin
+withdraw
+John Doe
