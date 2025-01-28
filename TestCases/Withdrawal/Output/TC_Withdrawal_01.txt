@@ -1,1 +1,2 @@
-Currently logged in as admin. Please enter the account holder's name:
+Please enter session type:
+Currently logged in as admin and withdrawing. Please enter the account holder's name:

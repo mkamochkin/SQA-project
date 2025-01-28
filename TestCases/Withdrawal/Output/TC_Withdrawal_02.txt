@@ -1,1 +1,2 @@
-Please enter the account number:
+Please enter session type:
+Withdrawing. Please enter the account number:
