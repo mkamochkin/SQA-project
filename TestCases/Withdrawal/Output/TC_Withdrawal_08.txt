@@ -1,0 +1,1 @@
+You will have a negative balance if you withdraw this amount. Rejected. Please try again.
