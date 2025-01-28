@@ -1,1 +1,2 @@
-Test
+Currently logged in as admin. Please enter the account holder's name:
+Name accepted!
