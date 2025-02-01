@@ -1,1 +1,2 @@
-Login successful welcome standard user.
+Standard session type selected.
+Enter account name: 
