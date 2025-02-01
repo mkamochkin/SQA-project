@@ -1,4 +1,6 @@
 login
-admin
-create
+standard
+Bob
+withdraw
+10000
 logout
