@@ -1,0 +1,4 @@
+Please enter session type:
+Standard session type selected. Welcome John.
+Please enter account number:
+Account verified.

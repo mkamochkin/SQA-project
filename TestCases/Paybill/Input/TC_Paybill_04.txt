@@ -1,0 +1,6 @@
+login
+standard
+John Smith
+paybill
+12345
+EC

@@ -1,0 +1,8 @@
+Please enter session type:
+Standard session type selected. Welcome John.
+Please enter account number:
+Account verified.
+Please enter which company you want to pay your bill to: (EC) | (CQ) | (FI) 
+EC selected.
+Please enter how much you wish to pay:
+Insufficient Funds. Session terminated.

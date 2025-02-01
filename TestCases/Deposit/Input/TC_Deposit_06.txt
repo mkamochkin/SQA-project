@@ -1,0 +1,6 @@
+login
+standard
+John Smith
+deposit
+12345
+150

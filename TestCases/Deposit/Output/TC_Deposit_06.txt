@@ -1,0 +1,7 @@
+Please enter session type:
+Standard session type selected. Welcome John.
+Please enter account number:
+Account verified.
+Please enter how much you wish to deposit:
+Money successfully deposited. Deposited funds are no longer available in the current session.
+Transaction logged.

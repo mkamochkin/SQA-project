@@ -1,0 +1,5 @@
+Please enter session type:
+Standard session type selected. Welcome John.
+Please enter account number:
+Account verified.
+Please enter how much you wish to deposit:
