@@ -1,5 +1,4 @@
 login
-standard
-Bob
+admin
 create
 logout
