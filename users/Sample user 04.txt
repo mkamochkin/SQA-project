@@ -1,0 +1,4 @@
+Session type: Standard
+Name: Mary Sue
+Account number: 33333
+Account balance: $900

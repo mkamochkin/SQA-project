@@ -1,0 +1,4 @@
+Session type: Standard
+Name: Steve Doe
+Account number: 22222
+Account balance: $1200

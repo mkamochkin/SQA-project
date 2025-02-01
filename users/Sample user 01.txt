@@ -1,0 +1,4 @@
+Session type: Standard
+Name: John Smith
+Account number: 12345
+Account balance: $400
