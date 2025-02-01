@@ -1,4 +1,6 @@
 login
 standard
-Bob 
+Bob
+withdraw
+10000
 logout
