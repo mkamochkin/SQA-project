@@ -1,2 +1,1 @@
-Standard session type selected.
-Enter account name: 
+Standard session type selected. Welcome Bob.
