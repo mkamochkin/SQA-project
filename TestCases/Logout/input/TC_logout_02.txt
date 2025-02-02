@@ -1,0 +1,5 @@
+login  
+admin  
+logout  
+deposit 100  
+withdraw 50  

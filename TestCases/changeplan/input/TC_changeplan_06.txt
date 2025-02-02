@@ -1,0 +1,8 @@
+login  
+admin  
+changeplan  
+Charlie Brown  
+1357902  
+NP  
+SP  
+logout  

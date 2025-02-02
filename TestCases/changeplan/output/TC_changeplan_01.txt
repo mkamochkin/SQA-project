@@ -1,0 +1,10 @@
+Welcome to the banking system
+Enter session type:
+Login 
+Login accepted 
+Enter account holder name:
+Enter account number:
+Enter current payment plan:
+Enter new payment plan:
+Payment plan updated successfully
+Logout

@@ -1,0 +1,13 @@
+welcome to the banking system  
+enter session type:  
+login accepted  
+session terminated  
+welcome to the banking system  
+enter session type:  
+login accepted  
+enter account holder name:  
+enter account number:  
+enter current payment plan:  
+enter new payment plan:  
+payment plan updated successfully  
+session terminated  

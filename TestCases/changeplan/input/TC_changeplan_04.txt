@@ -1,0 +1,8 @@
+login
+admin
+changeplan
+Alice Smith
+9876543
+SP
+NP
+logout

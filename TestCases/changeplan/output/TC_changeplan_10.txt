@@ -1,0 +1,5 @@
+welcome to the banking system  
+enter session type:  
+login accepted  
+error: account number does not match account holder  
+session terminated  

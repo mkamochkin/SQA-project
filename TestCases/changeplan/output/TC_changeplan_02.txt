@@ -1,0 +1,5 @@
+Welcome to the banking system
+Enter session type:
+Login accepted
+Permission denied: Only admin can change payment plan
+Session Terminated

@@ -1,0 +1,5 @@
+welcome to the banking system  
+enter session type:  
+login accepted  
+session terminated  
+error: no transactions allowed after logout  

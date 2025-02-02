@@ -1,0 +1,8 @@
+login
+admin
+changeplan
+Bob Johnson
+2468013
+NP 
+SP 
+logout

@@ -1,0 +1,6 @@
+Welcome to the banking system
+Enter session type:
+Login accepted
+Enter account holder name:
+Error: Account holder not found
+Session Terminated

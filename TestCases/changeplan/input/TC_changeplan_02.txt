@@ -1,0 +1,8 @@
+login
+User1
+changeplan
+John Doe
+1234567
+SP
+NP
+logout

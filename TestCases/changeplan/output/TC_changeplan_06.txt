@@ -1,0 +1,6 @@
+welcome to the banking system  
+enter session type:  
+login accepted  
+enter account holder name:  
+error: payment plan change not allowed  
+session terminated  

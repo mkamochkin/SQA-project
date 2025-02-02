@@ -1,0 +1,8 @@
+login  
+admin  
+changeplan  
+John Doe  
+9999999  
+SP  
+NP  
+logout  

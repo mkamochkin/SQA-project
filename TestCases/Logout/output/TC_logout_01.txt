@@ -1,0 +1,4 @@
+welcome to the banking system  
+enter session type:  
+login accepted  
+session terminated  
