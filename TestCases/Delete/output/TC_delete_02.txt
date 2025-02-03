@@ -1,0 +1,3 @@
+Standard session type selected. Welcome Bob.
+Unprivilaged Transaction not permitted.
+session terminated.

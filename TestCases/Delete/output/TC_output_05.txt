@@ -1,0 +1,4 @@
+Login successful. Welcome admin.
+Account deleted successfully.
+No further action can be performed on deleted account.
+Session terminated.
