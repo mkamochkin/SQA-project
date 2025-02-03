@@ -1,0 +1,5 @@
+Welcome to the banking system
+Enter session type
+Standard session type selected. Welcome John.
+Currently logged and transfering. Please enter the account number from which the money will be transferred from:
+This is not a valid account! Please try again.

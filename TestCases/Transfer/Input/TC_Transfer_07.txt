@@ -1,0 +1,6 @@
+login
+standard
+transfer
+John Smith
+22222
+2000

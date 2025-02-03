@@ -1,0 +1,4 @@
+Welcome to the banking system
+Enter session type
+Login successful. Welcome admin.
+Currently logged in as admin and transferring. Please enter the account holder's name:
