@@ -1,0 +1,7 @@
+login
+admin
+create
+THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG
+501
+logout
+

@@ -1,0 +1,4 @@
+Login successful. Welcome admin.
+Account name accepted. 
+Initial balance applied.
+Account created successfully.

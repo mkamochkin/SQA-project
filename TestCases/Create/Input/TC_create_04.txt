@@ -1,0 +1,7 @@
+login
+admin
+create
+Bob Smith
+39857234905.0
+logout
+

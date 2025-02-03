@@ -1,0 +1,9 @@
+login
+admin
+create
+Bob Smith
+1000.0
+deposit
+3232.0
+50
+logout
