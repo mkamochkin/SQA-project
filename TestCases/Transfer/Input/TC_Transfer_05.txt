@@ -2,4 +2,4 @@ login
 standard
 transfer
 12Osdzzfsdd...
-
+logout

@@ -5,3 +5,4 @@ paybill
 12345
 EC
 150
+logout

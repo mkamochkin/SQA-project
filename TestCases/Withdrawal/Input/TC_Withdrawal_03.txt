@@ -2,3 +2,4 @@ login
 standard
 withdrawal
 Peter_!!Smooth
+logout

@@ -4,3 +4,4 @@ withdrawal
 12345
 300
 logout
+logout

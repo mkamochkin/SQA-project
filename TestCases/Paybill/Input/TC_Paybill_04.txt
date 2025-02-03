@@ -4,3 +4,4 @@ John Smith
 paybill
 12345
 EC
+logout

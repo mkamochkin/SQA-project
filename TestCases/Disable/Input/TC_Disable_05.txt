@@ -2,3 +2,4 @@ login
 standard
 transfer
 Bob Smith
+logout

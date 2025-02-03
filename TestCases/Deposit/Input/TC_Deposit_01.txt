@@ -2,3 +2,4 @@ login
 admin
 deposit
 John Doe
+logout

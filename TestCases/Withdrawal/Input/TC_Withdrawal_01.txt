@@ -2,3 +2,4 @@ login
 admin
 withdraw
 John Doe
+logout

@@ -2,3 +2,4 @@ login
 standard
 withdrawal
 12345
+logout

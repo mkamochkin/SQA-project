@@ -4,3 +4,4 @@ transfer
 John Smith
 22222
 $200
+logout

@@ -2,3 +2,4 @@ login
 standard
 11111
 disable
+logout

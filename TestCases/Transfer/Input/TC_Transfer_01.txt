@@ -2,3 +2,4 @@ login
 admin
 transfer
 Bob Smith
+logout

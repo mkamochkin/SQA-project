@@ -3,3 +3,4 @@ standard
 John Smith
 deposit
 12345
+logout

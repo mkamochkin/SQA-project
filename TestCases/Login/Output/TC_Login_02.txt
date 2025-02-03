@@ -1,1 +1,1 @@
-Standard session type selected. Welcome Bob.
+Standard session type selected. Welcome Bob Smith.

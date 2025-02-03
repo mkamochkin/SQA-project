@@ -3,3 +3,4 @@ standard
 transfer
 John Smith
 ghfdfsdgsddfs
+logout

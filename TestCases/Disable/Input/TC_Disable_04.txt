@@ -4,3 +4,4 @@ Jeff Brown
 disable
 Bob
 11112
+logout

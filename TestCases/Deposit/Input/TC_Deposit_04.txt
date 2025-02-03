@@ -4,3 +4,4 @@ John Smith
 deposit
 12345
 150
+logout
