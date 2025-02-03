@@ -1,0 +1,8 @@
+Welcome to the banking system
+Enter session type
+Standard session type selected.
+Please enter your account number:
+Welcome Jeff.
+Disabling...Please enter the account holder's name you wish to disable:
+Please enter the account number you wish to disable:
+There is no account with that account number! Rejected.

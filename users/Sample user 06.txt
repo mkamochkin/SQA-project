@@ -1,0 +1,4 @@
+Session type: Admin
+Name: Jeff Brown
+Account number: 99999
+Account balance: $6400

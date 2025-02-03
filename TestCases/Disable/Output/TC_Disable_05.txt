@@ -1,0 +1,4 @@
+Welcome to the banking system
+Enter session type
+Standard session type selected. 
+Your account has been disabled. You cannot make any transactions!

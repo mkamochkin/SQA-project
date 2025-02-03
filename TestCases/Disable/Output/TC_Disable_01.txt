@@ -1,0 +1,6 @@
+Welcome to the banking system
+Enter session type
+Standard session type selected.
+Please enter your account number:
+Welcome Bob.
+That is a priviledged transaction! You do not have access. Rejected.
