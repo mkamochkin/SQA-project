@@ -1,1 +1,5 @@
-Rejected. Please try again.
+Welcome to the banking system
+Enter session type
+Login Accepted
+Withdrawing. Please enter the account number:
+Entered credentials are NOT valid!

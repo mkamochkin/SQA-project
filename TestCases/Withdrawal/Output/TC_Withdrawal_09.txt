@@ -1,1 +1,10 @@
-Withdrawal successful! Your balance has been updated.
+Welcome to the banking system
+Enter session type
+Login
+Login Accepted
+Withdrawing. Please enter the account number:
+Entered credentials are valid!
+How much money do you want to withdraw?
+Amount approved!
+Withdrawal successful!
+Logout

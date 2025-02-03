@@ -1,1 +1,8 @@
-You will have a negative balance if you withdraw this amount. Rejected. Please try again.
+Welcome to the banking system
+Enter session type
+Login
+Login Accepted
+Withdrawing. Please enter the account number:
+Entered credentials are valid!
+How much money do you want to withdraw?
+Amount NOT approved! You will have a negative balance if you withdraw this amount. Rejected. Please try again.

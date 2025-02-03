@@ -1,1 +1,9 @@
-Cannot withdraw more than $500. Please try again.
+Welcome to the banking system
+Enter session type
+Login
+Login Accepted
+Withdrawing. Please enter the account number:
+Entered credentials are valid!
+How much money do you want to withdraw?
+Amount NOT approved! Cannot be more than $500
+ 

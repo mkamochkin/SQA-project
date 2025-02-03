@@ -1,1 +1,4 @@
-[amount]
+login
+standard
+withdrawal
+12345

@@ -1,1 +1,6 @@
-Accepted!
+Welcome to the banking system
+Enter session type
+Login
+Login Accepted
+Withdrawing. Please enter the account number:
+Entered credentials are valid!

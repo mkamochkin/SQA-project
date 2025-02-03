@@ -1,2 +1,5 @@
-Please enter session type:
+Welcome to the banking system
+Enter session type
+Login
+Login Accepted
 Withdrawing. Please enter the account number:

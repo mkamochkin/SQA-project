@@ -1,1 +1,5 @@
-[amount > 500]
+login
+standard
+withdrawal
+12345
+600

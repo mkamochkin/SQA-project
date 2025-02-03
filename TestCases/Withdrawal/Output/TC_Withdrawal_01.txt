@@ -1,2 +1,5 @@
-Please enter session type:
+Welcome to the banking system
+Enter session type
+Login
+Login Accepted
 Currently logged in as admin and withdrawing. Please enter the account holder's name:
