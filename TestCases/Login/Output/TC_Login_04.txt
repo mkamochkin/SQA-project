@@ -1,1 +1,0 @@
-Transaction not permitted before login. Please login first.
