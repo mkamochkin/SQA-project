@@ -53,6 +53,7 @@ def signin():
         
         if (isAdmin == False):
             print('Standard session type selected. Welcome name.\n Select transaction:')
+            
 
  
 
