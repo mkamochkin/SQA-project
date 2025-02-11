@@ -48,10 +48,12 @@ def signin():
         Transactions.transfer: 6,
         Transactions.changePlan: 7,
     }
+
     def allowtransaction():
         
         if (isAdmin == False):
             print('Standard session type selected. Welcome name.\n Select transaction:')
+
  
 
 
@@ -67,4 +69,6 @@ if __name__ == "__main__":
     print(account)
     # Expected output:
     # BankAccount(account_number=12345, account_holder='John Doe', status=A, balance=5431.0)
+
+    signin()
 
