@@ -1,6 +1,7 @@
 # Main.py
 
 from User import User
+import Transactions
 
 if __name__ == "__main__":
     # Input record (37 characters plus newline).
@@ -14,3 +15,19 @@ if __name__ == "__main__":
     print(account)
     # Expected output:
     # BankAccount(account_number=12345, account_holder='John Doe', status=A, balance=5431.0)
+
+    #dictionary that holds the transactions
+    transactionDict = {
+        Transactions.delete : 1,
+        Transactions.disable : 2,
+        Transactions.withdraw : 3,
+        Transactions.paybill: 4,
+        Transactions.deposit: 5,
+        Transactions.transfer: 6,
+        Transactions.changePlan: 7,
+    }
+    def allowtransaction():
+        
+        if (isAdmin == False):
+            print('Standard session type selected. Welcome name.\n Select transaction:')
+ 
