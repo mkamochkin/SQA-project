@@ -1,7 +1,7 @@
 # Main.py
 
 from User import User
-import Transactions
+from Transactions import Transactions
 
 backend_path = "ETF.txt"
 isAdmin = False  # Global variable
