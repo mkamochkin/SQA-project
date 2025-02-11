@@ -1,29 +1,42 @@
 # Main.py
 
 from User import User
-    
+
 backend_path = "ETF.txt"
+isAdmin = False  # Global variable
+
+# for now this returns True always, later add functionality to test if the name a standard user enters is actually an existing and valid user
+def checkIfValidUser(name):
+    return True
 
 def signin():
     
-    isAdmin = False
+    global isAdmin  # Declare isAdmin as global so we can modify it
     print("Welcome! Please select login type: (standard or admin)")
-    typeInput = input()
-    if (typeInput == "standard"):
+    typeInput = input().strip().lower()
+    
+    if typeInput == "standard":
         isAdmin = False
-    elif (typeInput == "admin"):
+    elif typeInput == "admin":
         isAdmin = True
-    else: (print("Error! Please enter 'standard' or 'admin'"))
+    else:
+        print("Error! Please enter 'standard' or 'admin'")
+        return  # Optionally exit the function if input is invalid
 
-    if (isAdmin == False):
-        print("Standard session type seleted. Please enter your name:")
-        nameInput = input()
-        print("name:" + nameInput)
-    else (isAdmin == True):
+    if not isAdmin:
+        print("Standard session type selected. Please enter your name:")
+        nameInput = input().strip()
+        print("name: " + nameInput)
+        
+        if not checkIfValidUser:
+            print("This name does not match up with a user in the database. Please try again.")
+
+        # load in data from database text file by user name
+        # path to file is in var backend_path
+    else:
         print("Welcome admin")
 
 
-    
 
 if __name__ == "__main__":
     # Input record (37 characters plus newline).
@@ -37,6 +50,3 @@ if __name__ == "__main__":
     print(account)
 
     signin()
-    # Expected output:
-    # BankAccount(account_number=12345, account_holder='John Doe', status=A, balance=5431.0)
-
