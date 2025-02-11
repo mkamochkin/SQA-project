@@ -38,23 +38,23 @@ def signin():
         print("Welcome admin")
 
     
-    #dictionary that holds the transactions
-    transactionDict = {
-        Transactions.delete : 1,
-        Transactions.disable : 2,
-        Transactions.withdraw : 3,
-        Transactions.paybill: 4,
-        Transactions.deposit: 5,
-        Transactions.transfer: 6,
-        Transactions.changePlan: 7,
+    #dictionary that holds the transactions and whether
+    # True if priviledged
+    isPriviledgedTransaction = {
+        "delete" : True,
+        "disable" : True,
+        "create" : True,
+        "withdraw" : False,
+        "paybill" : False,
+        "deposit" : False,
+        "transfer" : False,
+        "changePlan" : False,
     }
 
     def allowtransaction():
         
         if (isAdmin == False):
             print('Standard session type selected. Welcome name.\n Select transaction:')
-
- 
 
 
 if __name__ == "__main__":
@@ -71,4 +71,17 @@ if __name__ == "__main__":
     # BankAccount(account_number=12345, account_holder='John Doe', status=A, balance=5431.0)
 
     signin()
+    # promt to enter transaction type
+    # asdasd()
+
+    """
+    if not isAdmin:
+        if transactionDict[desiredTranscation] == True
+        print ("You don't have the permissions for this")
+        else (desiredTransaction())
+    """
+
+
+
+
 

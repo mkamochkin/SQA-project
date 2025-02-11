@@ -1,6 +1,4 @@
 
-
-
 def withdraw():
     return
 
