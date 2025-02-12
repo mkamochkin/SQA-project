@@ -1,6 +1,6 @@
-# ETF_Parser.py
+#CBa_Parser.py
 
-class ETF_Parser:
+class CBA_Parser:
     @staticmethod
     def parse_line(record_line: str):
         """

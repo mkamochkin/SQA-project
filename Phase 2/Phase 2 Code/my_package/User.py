@@ -1,6 +1,6 @@
 # User.py
 
-from ETF_Parser import ETF_Parser
+from CBA_Parser import CBA_Parser
 
 class User:
     def __init__(self):
@@ -13,7 +13,7 @@ class User:
         """
         Load the bank account data by parsing the fixed-width record line.
         """
-        acct_num, holder, stat, bal = ETF_Parser.parse_line(record_line)
+        acct_num, holder, stat, bal = CBA_Parser.parse_line(record_line)
         self.account_number = acct_num
         self.account_holder = holder
         self.status = stat

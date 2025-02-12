@@ -2,6 +2,8 @@
 
 from User import User
 from Transactions import Transactions
+from BAT_Serializer import BAT_Serializer
+from CBA_Serializer import CBA_Serializer
 
 backend_path = "ETF.txt"
 isAdmin = False  # Global variable
@@ -59,19 +61,30 @@ def signin():
 
 
 if __name__ == "__main__":
-    # Input record (37 characters plus newline).
-    # Note: Underscores represent spaces in the input.
+
+    
     sample_line = "12345_John_Doe_____________A_00005431\n"
     
     # Create a User (bank account) and load values from the sample line.
     account = User()
     account.load_from_line(sample_line)
-    
-    print(account)
-    # Expected output:
-    # BankAccount(account_number=12345, account_holder='John Doe', status=A, balance=5431.0)
 
     signin()
+ 
+    """   
+    print("CBA Parser:")
+    print(account)
+
+    print("BAT serializer:")
+    print(BAT_Serializer.serialize(3, "Mary Smith", 12345, 50.87, ""))
+
+    print("CBA serializer:")
+    print(CBA_Serializer.serialize(1111, "Steve Mine", "A", 567.00))
+    """
+
+    
+    
+    
     # promt to enter transaction type
     # asdasd()
 
