@@ -22,3 +22,6 @@ class Transactions:
 
     def create():
         return
+    
+    def logout():
+        return
