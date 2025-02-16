@@ -2,6 +2,8 @@ from User import User
 from BAT_Serializer import BAT_Serializer
 from CBA_Serializer import CBA_Serializer
 from CBA_Parser import CBA_Parser
+from BAT_Writer import BAT_Writer
+from CBA_Writer import CBA_Writer
 
 class Transactions:
     def __init__(self):
@@ -14,10 +16,11 @@ class Transactions:
         self.status = None
         self.balance = None
 
+        self.BATList = []
+
     # Helper functions for transactions:
     
     def getName(self):
-        print("What is the account holder's name?")
         self.inputName = input().strip().lower()
         return self.inputName
     
@@ -44,10 +47,10 @@ class Transactions:
         return
         
     
-    
     # Transactions:
     def withdraw(self, isAdmin):
         if isAdmin:
+            print("What is the account holder's name?")
             name = self.getName()
             self.setVarsFromParserByName()
             print("How much money do you want to withdraw from " + name + "?")
@@ -56,10 +59,12 @@ class Transactions:
             if int(amount) > self.balance:
                 print ("This user will have a negative amount after this withdrawal. Denied!")
             else:
-                print (BAT_Serializer.serialize(1, self.accountHolderName, self.accountNumber, amount, "XX"))
-                print (CBA_Serializer.serialize(self.accountNumber, self.accountHolderName, self.status, self.balance - int(amount)))
-                return BAT_Serializer.serialize(1, self.accountHolderName, self.accountNumber, amount, "XX")
-            return 0
+                BATString =  BAT_Serializer.serialize(1, self.accountHolderName, self.accountNumber, amount, "XX")
+                self.BATList.append(BATString)
+                CBAString = CBA_Serializer.serialize(self.accountNumber, self.accountHolderName, self.status, self.balance - int(amount))
+                CBA_Writer.writeToCBA(CBAString)
+        else:
+            print("What is the account number?")
 
     def deposit(self):
         # Deposit logic here.
@@ -90,5 +95,6 @@ class Transactions:
         return
     
     def logout(self):
-        # Logout logic here.
+        for BAT in self.BATList:
+            BAT_Writer.writeToBAT(BAT)
         return
