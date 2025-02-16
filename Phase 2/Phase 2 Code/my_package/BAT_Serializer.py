@@ -33,7 +33,7 @@ class BAT_Serializer:
         
         # Format the amount: convert to integer dollars (ignoring cents),
         # pad to 5 digits, then append ".00" for an 8-character field.
-        amount_str = str(int(amount)).zfill(5) + ".00"
+        amount_str = str(float(amount)).zfill(5) + ".00"
         
         # Format the miscellaneous field: exactly 2 characters, left-justified, underscore-padded.
         misc_str = str(misc)[:2].ljust(2, '_')
