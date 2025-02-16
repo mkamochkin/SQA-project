@@ -41,8 +41,10 @@ def getTransactionInput():
 def runTransaction(transactionInput):
     if isAdmin:
         # Admin users can perform all transactions.
+        transaction = Transactions()
         if transactionInput == "withdrawal":
-            Transactions.withdraw()
+            transaction.withdraw(isAdmin)
+            #Transactions.withdraw(isAdmin)
         elif transactionInput == "transfer":
             Transactions.transfer()
         elif transactionInput == "paybill":
@@ -72,7 +74,7 @@ def runTransaction(transactionInput):
             else:
                 # Otherwise, execute the corresponding transaction.
                 if transactionInput == "withdrawal":
-                    Transactions.withdraw()
+                    Transactions.withdraw(isAdmin)
                 elif transactionInput == "transfer":
                     Transactions.transfer()
                 elif transactionInput == "paybill":
@@ -125,6 +127,7 @@ def signin():
         print("Please enter which transaction you would like to do:")
         # TODO: this looks ugly in console.
         print("withdrawal\ntransfer\npaybill\ndeposit\nlogout")
+
     else:
         print("Welcome admin")
         print("Please enter which transaction you would like to do:")
