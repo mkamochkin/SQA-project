@@ -109,7 +109,7 @@ class Transactions:
         return None
         
     def getAmount(self):
-        print("Enter the amount:")
+        #print("Enter the amount:")
         self.amount = input().strip()
         return self.amount
     
@@ -266,8 +266,102 @@ class Transactions:
         getTransactionInput(self.isAdmin)
 
     def paybill(self):
-        print("Paybill not implemented yet.")
+        # --- Determine source account details ---
+        if self.isAdmin:
+            print("Enter the account holder's name:")
+            src_name = self.getName()  # sets self.inputName
+            src_line = self.getRecordLineFromName(src_name)
+            if src_line is None:
+                print("Source account not found for name:", src_name)
+                self.paybill()  # Retry
+                return
+            # Parse the source record line.
+            src_accountNumber, src_accountHolderName, src_status, src_balance = CBA_Parser.parse_line(src_line)
+            print("Enter the account number:")
+            src_input = self.getAccountNumber()  # sets self.inputNumber
+            # Compare using zero-padded strings.
+            if str(src_accountNumber).zfill(5) != str(src_input).zfill(5):
+                print("The account number does not match the account holder's record. Try again.")
+                self.paybill()  # Retry
+                return
+        else:
+            print("Enter your account number:")
+            src_input = self.getAccountNumber()
+            src_line = self.getRecordLineFromNumber(src_input)
+            if src_line is None:
+                print("Account not found. Try again.")
+                self.paybill()  # Retry
+                return
+            src_accountNumber, src_accountHolderName, src_status, src_balance = CBA_Parser.parse_line(src_line)
+        
+        # --- Ask for the company to whom the bill is being paid ---
+        print("Enter the company to pay the bill for:")
+        company = input().strip()
+        allowed_companies = [
+            "The Bright Light Electric Company (EC)",
+            "Credit Card Company Q (CQ)",
+            "Fast Internet, Inc. (FI)", "EC", "CQ", "FI"
+        ]
+        allowed_companies_to_print = [
+            "The Bright Light Electric Company (EC)",
+            "Credit Card Company Q (CQ)",
+            "Fast Internet, Inc. (FI)"
+        ]
+        if company not in allowed_companies:
+            print("Invalid company. Allowed companies are:")
+            for comp in allowed_companies_to_print:
+                print(comp)
+            self.paybill()  # Retry
+            return
+
+        # Determine the two-letter code from the company string.
+        if "EC" in company:
+            misc_field = "EC"
+        elif "CQ" in company:
+            misc_field = "CQ"
+        elif "FI" in company:
+            misc_field = "FI"
+        else:
+            misc_field = "??"  # Should not occur if allowed_companies is enforced.
+        
+        # --- Get the bill payment amount ---
+        print("Enter the amount to pay:")
+        amount_str = self.getAmount()
+        try:
+            amount_value = float(amount_str)
+        except ValueError:
+            print("Invalid amount entered. Try again.")
+            self.paybill()  # Retry
+            return
+        
+        # For standard users, maximum bill payment is $2000.00.
+        if not self.isAdmin and amount_value > 2000.00:
+            print("Standard users cannot pay bills more than $2000.00. Try again.")
+            self.paybill()  # Retry
+            return
+
+        # Ensure that the account balance will remain at least $0.00.
+        if src_balance - amount_value < 0:
+            print("Bill payment would cause a negative balance. Denied!")
+            self.paybill()  # Retry
+            return
+
+        new_balance = src_balance - amount_value
+
+        # --- Record the transaction ---
+        # Transaction code for paybill is 03.
+        BATString = BAT_Serializer.serialize(3, src_accountHolderName, src_accountNumber, amount_str, misc_field)
+        with open(self.temp_file, "a") as temp_file:
+            temp_file.write(BATString)
+        
+        # Update the source account's balance in the CBA file.
+        new_line = CBA_Serializer.serialize(src_accountNumber, src_accountHolderName, src_status, new_balance)
+        CBA_Writer.writeToCBA(new_line)
+        
+        print("Bill payment successful!")
+        # After processing, prompt for the next transaction.
         getTransactionInput(self.isAdmin)
+
 
     def create(self):
         print("Create not implemented yet.")
