@@ -40,12 +40,12 @@ class Transactions:
 
     # Helper functions for transactions:
     def getName(self):
-        print("What is the account holder's name?")
+        #print("What is the account holder's name?")
         self.inputName = input().strip().lower()
         return self.inputName
     
     def getAccountNumber(self):
-        print("What is the account number?")
+        #print("What is the account number?")
         self.inputNumber = input().strip()
         return self.inputNumber
 
@@ -124,6 +124,7 @@ class Transactions:
     # Transaction methods:
     def withdraw(self):
         if self.isAdmin:
+            print("Enter the source account holder's name:")
             name = self.getName()
             self.setVarsFromParserByName()
             print("How much money do you want to withdraw from " + name + "?")
@@ -143,6 +144,7 @@ class Transactions:
                 # After finishing, ask for the next transaction.
                 getTransactionInput(self.isAdmin)
         else:
+            print("Enter your account number:")
             number = self.getAccountNumber()
             self.setVarsFromParserByNumber()
             print("How much money do you want to withdraw?")
@@ -163,6 +165,90 @@ class Transactions:
                 print("Transaction successful!")
                 getTransactionInput(self.isAdmin)
 
+    
+    def transfer(self):
+        # --- Determine source account details ---
+        if self.isAdmin:
+            print("Enter the source account holder's name:")
+            src_name = self.getName()  # sets self.inputName
+            src_line = self.getRecordLineFromName(src_name)
+            if src_line is None:
+                print("Source account not found for name:", src_name)
+                self.transfer()  # Retry
+                return
+            # Parse the source record line
+            src_accountNumber, src_accountHolderName, src_status, src_balance = CBA_Parser.parse_line(src_line)
+            print("Enter the source account number:")
+            src_input = self.getAccountNumber()  # sets self.inputNumber
+            # Compare using zero-padded strings.
+            if str(src_accountNumber).zfill(5) != str(src_input).zfill(5):
+                print("The source account number does not match the account holder's record. Try again.")
+                self.transfer()  # Retry
+                return
+        else:
+            print("Enter your source account number:")
+            src_input = self.getAccountNumber()
+            src_line = self.getRecordLineFromNumber(src_input)
+            if src_line is None:
+                print("Source account not found. Try again.")
+                self.transfer()  # Retry
+                return
+            src_accountNumber, src_accountHolderName, src_status, src_balance = CBA_Parser.parse_line(src_line)
+        
+        # --- Determine destination account details ---
+        print("Enter the destination account number:")
+        dest_input = self.getAccountNumber()
+        dest_line = self.getRecordLineFromNumber(dest_input)
+        if dest_line is None:
+            print("Destination account not found. Try again.")
+            self.transfer()  # Retry
+            return
+        dest_accountNumber, dest_accountHolderName, dest_status, dest_balance = CBA_Parser.parse_line(dest_line)
+        
+        # --- Get transfer amount ---
+        print("Enter the amount to transfer:")
+        transfer_amount_str = self.getAmount()
+        try:
+            transfer_amount = float(transfer_amount_str)
+        except ValueError:
+            print("Invalid amount entered. Try again.")
+            self.transfer()  # Retry
+            return
+
+        # --- Enforce constraints ---
+        if not self.isAdmin and transfer_amount > 1000.00:
+            print("Standard users cannot transfer more than $1000.00. Try again.")
+            self.transfer()  # Retry
+            return
+
+        if src_balance - transfer_amount < 0:
+            print("Transfer would cause a negative balance in the source account. Denied!")
+            self.transfer()  # Retry
+            return
+        
+        # --- Perform the transfer ---
+        new_src_balance = src_balance - transfer_amount
+        new_dest_balance = dest_balance + transfer_amount
+
+        # Create a BAT record for the transfer. (Transaction code 02 for transfer.)
+        BATString = BAT_Serializer.serialize(2, src_accountHolderName, src_accountNumber, transfer_amount_str, "XX")
+        with open(self.temp_file, "a") as temp_file:
+            temp_file.write(BATString)
+        
+        # Update the source account in the CBA file.
+        new_src_line = CBA_Serializer.serialize(src_accountNumber, src_accountHolderName, src_status, new_src_balance)
+        CBA_Writer.writeToCBA(new_src_line)
+        
+        # Update the destination account in the CBA file.
+        new_dest_line = CBA_Serializer.serialize(dest_accountNumber, dest_accountHolderName, dest_status, new_dest_balance)
+        CBA_Writer.writeToCBA(new_dest_line)
+        
+        print("Transfer successful!")
+        # After transfer, prompt for the next transaction.
+        getTransactionInput(self.isAdmin)
+
+
+    
     def deposit(self):
         print("Deposit not implemented yet.")
         getTransactionInput(self.isAdmin)
@@ -177,10 +263,6 @@ class Transactions:
 
     def changePlan(self):
         print("Change plan not implemented yet.")
-        getTransactionInput(self.isAdmin)
-
-    def transfer(self):
-        print("Transfer not implemented yet.")
         getTransactionInput(self.isAdmin)
 
     def paybill(self):
