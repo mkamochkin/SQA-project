@@ -50,13 +50,64 @@ class Transactions:
         return self.inputNumber
 
     def getRecordLineFromName(self, name):
-        # In a real application, retrieve the correct record line for this name.
-        return "12345_John_Doe_____________A_00005431\n"
+        """
+        Search for a record in "CBA.txt" with a matching account holder's name.
+        
+        Assumptions:
+        - Each record line is fixed-width.
+        - The account holder's name is stored in positions 6 to 26.
+        - The name field is padded with underscores.
+        
+        Args:
+            name (str): The account holder's name to look for.
+            
+        Returns:
+            str: The matching record line (including newline), or None if not found.
+        """
+        try:
+            with open("CBA.txt", "r") as file:
+                for line in file:
+                    # Extract the account holder's name field (positions 6 to 26)
+                    # Replace underscores with spaces and strip extra whitespace.
+                    acct_name_field = line[6:26]
+                    acct_name = acct_name_field.replace("_", " ").strip()
+                    if acct_name.lower() == name.lower():
+                        return line
+        except FileNotFoundError:
+            print("CBA.txt file not found.")
+            return None
+
+        return None
     
     def getRecordLineFromNumber(self, number):
-        # In a real application, retrieve the correct record line for this account number.
-        return "22222_Bill_Hat_____________A_00009932\n"
-    
+        """
+        Search for a record in "CBA.txt" with a matching account number.
+        
+        Assumptions:
+        - Each record line is fixed-width.
+        - The account number is stored in the first 5 characters.
+        - Account numbers are stored as 5-digit strings.
+        
+        Args:
+            number (int or str): The account number to look for.
+            
+        Returns:
+            str: The matching record line (including newline), or None if not found.
+        """
+        # Ensure the account number is a 5-digit string.
+        number_str = str(number).zfill(5)
+        try:
+            with open("CBA.txt", "r") as file:
+                for line in file:
+                    acct_number = line[0:5]
+                    if acct_number == number_str:
+                        return line
+        except FileNotFoundError:
+            print("CBA.txt file not found.")
+            return None
+
+        return None
+        
     def getAmount(self):
         print("Enter the amount:")
         self.amount = input().strip()
