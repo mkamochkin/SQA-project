@@ -1,6 +1,5 @@
 class Transactions:
     def withdraw():
-        
         return
 
     def deposit():
