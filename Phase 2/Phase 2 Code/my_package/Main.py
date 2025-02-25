@@ -27,95 +27,76 @@ How the Program is Intended to be Run:
     5. When you choose to log out, any transaction data stored in temp_bat.txt is processed and appended
        to BAT.txt.
        
-Author: [Your Name]
+Author: SQA
 Date: [Date]
 """
 
 from User import User
-from Transactions import Transactions
+from Transactions import getTransactionInput  # import the transaction input function from Transactions.py
+from BAT_Serializer import BAT_Serializer
+from CBA_Serializer import CBA_Serializer
 
 backend_path = "ETF.txt"
-isAdmin = False  # Global variable
+isAdmin = None
 
-# for now this returns True always, later add functionality to test if the name a standard user enters is actually an existing and valid user
+# TODO: For now this returns True always, later add functionality to check if the provided name is valid.
 def checkIfValidUser(name):
-    # In a complete program, add logic to verify if the user exists.
     return True
 
-def signin():
-    
-    global isAdmin  # Declare isAdmin as global so we can modify it
+def getTypeInput():
+    global isAdmin 
     print("Welcome! Please select login type: (standard or admin)")
     typeInput = input().strip().lower()
-
+    
     if typeInput == "standard":
         isAdmin = False
     elif typeInput == "admin":
         isAdmin = True
     else:
         print("Error! Please enter 'standard' or 'admin'")
-        return  # Optionally exit the function if input is invalid
+        getTypeInput()
+
+def signin():
+    getTypeInput()
 
     if not isAdmin:
         print("Standard session type selected. Please enter your name:")
         nameInput = input().strip()
-        print("name: " + nameInput)
         
-        if not checkIfValidUser:
-            print("This name does not match up with a user in the database. Please try again.")
-
-        # load in data from database text file by user name
-        # path to file is in var backend_path
+        if not checkIfValidUser(nameInput):
+            print("This name does not match any user in the database. Please try again.")
+            getTypeInput()
+        print("Welcome " + nameInput + "!")
+        
+        print("Please enter which transaction you would like to do:")
+        # Listing available transactions for standard users
+        print("withdrawal\ntransfer\npaybill\ndeposit\nlogout")
     else:
         print("Welcome admin")
+        print("Please enter which transaction you would like to do:")
+        # Listing available transactions for admin users
+        print("withdrawal\ntransfer\npaybill\ndeposit\ncreate\ndelete\ndisable\nchangeplan\nlogout")
 
-    
-    #dictionary that holds the transactions and whether
-    # True if priviledged
-    isPriviledgedTransaction = {
-        "delete" : True,
-        "disable" : True,
-        "create" : True,
-        "withdraw" : False,
-        "paybill" : False,
-        "deposit" : False,
-        "transfer" : False,
-        "changePlan" : False,
-    }
-
-    def allowtransaction():
-        
-        if (isAdmin == False):
-            print('Standard session type selected. Welcome name.\n Select transaction:')
-            
-
+    # Now call the transaction input function from Transactions.py,
+    # passing the current session type (isAdmin)
+    getTransactionInput(isAdmin)
 
 if __name__ == "__main__":
-    # Input record (37 characters plus newline).
-    # Note: Underscores represent spaces in the input.
+    # Sample user. Can create multiple users with sample_line1, sample_line2, etc.
     sample_line = "12345_John_Doe_____________A_00005431\n"
     
     # Create a User (bank account) and load values from the sample line.
     account = User()
     account.load_from_line(sample_line)
-    
     print(account)
-    # Expected output:
-    # BankAccount(account_number=12345, account_holder='John Doe', status=A, balance=5431.0)
 
-    # Proceed with the interactive sign-in process using standard input.
     signin()
-    # promt to enter transaction type
-    # asdasd()
 
+    # Sample usage of the Parser & Serialization files can go here:
     """
-    if not isAdmin:
-        if transactionDict[desiredTranscation] == True
-        print ("You don't have the permissions for this")
-        else (desiredTransaction())
+    print("BAT serializer:")
+    print(BAT_Serializer.serialize(3, "Mary Smith", 12345, 50.87, ""))
+    
+    print("CBA serializer:")
+    print(CBA_Serializer.serialize(1111, "Steve Mine", "A", 567.00))
     """
-
-
-
-
-
