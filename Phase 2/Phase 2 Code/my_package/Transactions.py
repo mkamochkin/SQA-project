@@ -35,8 +35,10 @@ class Transactions:
         self.status = None
         self.balance = None
 
-        self.temp_file = "temp_bat.txt"
-        self.perm_file = "BAT.txt"
+        self.temp_bat_file = "temp_bat.txt"
+        self.perm_bat_file = "BAT.txt"
+        self.temp_cba_file = "temp_cba.txt"
+        self.perm_cba_file = "CBA.txt"
 
     # Helper functions for transactions:
     def getName(self):
@@ -136,7 +138,7 @@ class Transactions:
             else:
                 BATString = BAT_Serializer.serialize(1, self.accountHolderName, self.accountNumber, amount, "XX")
                 # Write the BATString to the temporary file.
-                with open(self.temp_file, "a") as temp_file:
+                with open(self.temp_bat_file, "a") as temp_file:
                     temp_file.write(BATString)
                 CBAString = CBA_Serializer.serialize(self.accountNumber, self.accountHolderName, self.status, self.balance - float(amount))
                 CBA_Writer.writeToCBA(CBAString)
@@ -250,8 +252,86 @@ class Transactions:
 
     
     def deposit(self):
-        print("Deposit not implemented yet.")
-        getTransactionInput(self.isAdmin)
+        # For admin users:
+        if self.isAdmin:
+            print("Enter the account holder's name:")
+            name = self.getName()  # sets self.inputName
+            acct_line = self.getRecordLineFromName(name)
+            if acct_line is None:
+                print("Account not found for name:", name)
+                self.deposit()  # Retry
+                return
+            # Parse account record by name.
+            self.setVarsFromParserByName()  # sets accountNumber, accountHolderName, status, balance
+            print("How much money do you want to deposit into " + self.accountHolderName + "?")
+            amount_str = self.getAmount()
+            try:
+                deposit_amount = float(amount_str)
+            except ValueError:
+                print("Invalid deposit amount. Try again.")
+                self.deposit()
+                return
+            if deposit_amount <= 0:
+                print("Deposit amount must be positive. Try again.")
+                self.deposit()
+                return
+
+            # Increase the account balance.
+            new_balance = self.balance + deposit_amount
+
+            # Record the deposit transaction in BAT (transaction code 04).
+            BATString = BAT_Serializer.serialize(4, self.accountHolderName, self.accountNumber, amount_str, "XX")
+            with open(self.temp_bat_file, "a") as temp_bat:
+                temp_bat.write(BATString)
+
+            # Update the account record in the temporary CBA file.
+            CBAString = CBA_Serializer.serialize(self.accountNumber, self.accountHolderName, self.status, new_balance)
+            with open(self.temp_cba_file, "a") as temp_cba:
+                temp_cba.write(CBAString)
+
+            print("Deposit successful! Your new balance is $" + str(new_balance))
+            getTransactionInput(self.isAdmin)
+
+        # For standard users:
+        else:
+            print("Enter your account number:")
+            number = self.getAccountNumber()  # sets self.inputNumber
+            acct_line = self.getRecordLineFromNumber(number)
+            if acct_line is None:
+                print("Account not found. Try again.")
+                self.deposit()  # Retry
+                return
+            # Parse account record by number.
+            self.setVarsFromParserByNumber()  # sets accountNumber, accountHolderName, status, balance
+            print("How much money do you want to deposit?")
+            amount_str = self.getAmount()
+            try:
+                deposit_amount = float(amount_str)
+            except ValueError:
+                print("Invalid deposit amount. Try again.")
+                self.deposit()
+                return
+            if deposit_amount <= 0:
+                print("Deposit amount must be positive. Try again.")
+                self.deposit()
+                return
+
+            # Increase the account balance.
+            new_balance = self.balance + deposit_amount
+
+            # Record the deposit transaction in BAT.
+            BATString = BAT_Serializer.serialize(4, self.accountHolderName, self.accountNumber, amount_str, "XX")
+            with open(self.temp_bat_file, "a") as temp_bat:
+                temp_bat.write(BATString)
+
+            # Update the account record in the temporary CBA file.
+            CBAString = CBA_Serializer.serialize(self.accountNumber, self.accountHolderName, self.status, new_balance)
+            with open(self.temp_cba_file, "a") as temp_cba:
+                temp_cba.write(CBAString)
+
+            print("Deposit successful! Your new balance is $" + str(new_balance))
+            getTransactionInput(self.isAdmin)
+
 
     def delete(self):
         print("Delete not implemented yet.")
@@ -369,18 +449,58 @@ class Transactions:
     
     def logout(self):
         print("Logging out. Processing temporary transactions...")
-        # Read the temporary file and write its contents to the permanent file.
+
+        # Process BAT transactions:
         try:
-            with open(self.temp_file, "r") as temp_file:
-                data = temp_file.read()
-            with open(self.perm_file, "a") as perm_file:
-                perm_file.write(data)
-            print("Transactions have been saved to", self.perm_file)
-            # Optionally, clear the temporary file.
-            with open(self.temp_file, "w") as temp_file:
-                temp_file.write("")
+            with open(self.temp_bat_file, "r") as temp_bat:
+                bat_data = temp_bat.read()
+            with open(self.perm_bat_file, "a") as perm_bat:
+                perm_bat.write(bat_data)
+            print("BAT transactions have been saved to", self.perm_bat_file)
+            # Clear the temporary BAT file.
+            with open(self.temp_bat_file, "w") as temp_bat:
+                temp_bat.write("")
         except FileNotFoundError:
-            print("No transactions to process.")
+            print("No BAT transactions to process.")
+
+        # Process CBA records: Merge temp_CBA with the permanent CBA file.
+        try:
+            # Read updated account records from temp_CBA into a dictionary mapping account numbers.
+            temp_cba_records = {}
+            try:
+                with open(self.temp_cba_file, "r") as temp_cba:
+                    for line in temp_cba:
+                        acct_num = line[0:5]
+                        temp_cba_records[acct_num] = line
+            except FileNotFoundError:
+                print("No temporary CBA records to process.")
+
+            # Read the permanent CBA file into a dictionary mapping account numbers.
+            perm_cba_records = {}
+            try:
+                with open(self.perm_cba_file, "r") as perm_cba:
+                    for line in perm_cba:
+                        acct_num = line[0:5]
+                        perm_cba_records[acct_num] = line
+            except FileNotFoundError:
+                print("Permanent CBA file not found. Creating a new one.")
+
+            # Merge: For each updated account in temp_CBA, replace the corresponding record in perm_cba_records.
+            for acct_num, record in temp_cba_records.items():
+                perm_cba_records[acct_num] = record
+
+            # Write the merged records back to the permanent CBA file.
+            with open(self.perm_cba_file, "w") as perm_cba:
+                for record in perm_cba_records.values():
+                    perm_cba.write(record)
+            print("CBA records have been updated in", self.perm_cba_file)
+
+            # Clear the temporary CBA file.
+            with open(self.temp_cba_file, "w") as temp_cba:
+                temp_cba.write("")
+        except Exception as e:
+            print("Error processing CBA records:", e)
+
         print("Logged out.")
 
 # Functions to handle transaction input and execution:
