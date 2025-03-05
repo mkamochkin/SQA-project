@@ -160,7 +160,7 @@ class Transactions:
                 self.withdraw()
             else:
                 BATString = BAT_Serializer.serialize(1, self.accountHolderName, self.accountNumber, amount, "XX")
-                with open(self.temp_file, "a") as temp_file:
+                with open(self.temp_bat_file, "a") as temp_file:
                     temp_file.write(BATString)
                 CBAString = CBA_Serializer.serialize(self.accountNumber, self.accountHolderName, self.status, self.balance - float(amount))
                 CBA_Writer.writeToCBA(CBAString)
@@ -234,7 +234,7 @@ class Transactions:
 
         # Create a BAT record for the transfer. (Transaction code 02 for transfer.)
         BATString = BAT_Serializer.serialize(2, src_accountHolderName, src_accountNumber, transfer_amount_str, "XX")
-        with open(self.temp_file, "a") as temp_file:
+        with open(self.temp_bat_file, "a") as temp_file:
             temp_file.write(BATString)
         
         # Update the source account in the CBA file.
@@ -342,8 +342,47 @@ class Transactions:
         getTransactionInput(self.isAdmin)
 
     def changePlan(self):
-        print("Change plan not implemented yet.")
+        # This transaction is privileged: only allowed for admin users.
+        if not self.isAdmin:
+            print("Privileged transaction denied for standard users. Please select another transaction.")
+            getTransactionInput(self.isAdmin)
+            return
+
+        # Ask for the account holder's name.
+        print("Enter the account holder's name:")
+        name = self.getName()  # sets self.inputName
+
+        # Ask for the account number.
+        print("Enter the account number:")
+        number = self.getAccountNumber()  # sets self.inputNumber
+
+        # Validate the account exists using the provided name.
+        acct_line = self.getRecordLineFromName(name)
+        if acct_line is None:
+            print("Account not found for name:", name)
+            self.changePlan()  # Retry
+            return
+
+        # Parse the account record.
+        parsed = CBA_Parser.parse_line(acct_line)
+        accountNumber, accountHolderName, status, balance = parsed
+
+        # Validate that the provided account number matches the record.
+        if str(accountNumber).zfill(5) != str(number).zfill(5):
+            print("Account number does not match the account holder's record. Try again.")
+            self.changePlan()  # Retry
+            return
+
+        # Record the change plan transaction.
+        # Transaction code 08 indicates a change in plan.
+        # Amount is 0, and the miscellaneous field is set to "NP" (non-student plan).
+        BATString = BAT_Serializer.serialize(8, accountHolderName, accountNumber, "0", "NP")
+        with open(self.temp_bat_file, "a") as temp_bat:
+            temp_bat.write(BATString)
+
+        print("Payment plan changed to NP successfully!")
         getTransactionInput(self.isAdmin)
+
 
     def paybill(self):
         # --- Determine source account details ---
@@ -431,7 +470,7 @@ class Transactions:
         # --- Record the transaction ---
         # Transaction code for paybill is 03.
         BATString = BAT_Serializer.serialize(3, src_accountHolderName, src_accountNumber, amount_str, misc_field)
-        with open(self.temp_file, "a") as temp_file:
+        with open(self.temp_bat_file, "a") as temp_file:
             temp_file.write(BATString)
         
         # Update the source account's balance in the CBA file.
