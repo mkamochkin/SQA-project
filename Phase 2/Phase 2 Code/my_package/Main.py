@@ -83,12 +83,12 @@ def signin():
 
 if __name__ == "__main__":
     # Sample user. Can create multiple users with sample_line1, sample_line2, etc.
-    sample_line = "12345_John_Doe_____________A_00005431\n"
+    #sample_line = "12345_John_Doe_____________A_00005431\n"
     
     # Create a User (bank account) and load values from the sample line.
-    account = User()
-    account.load_from_line(sample_line)
-    print(account)
+    #account = User()
+    #account.load_from_line(sample_line)
+    #print(account)
 
     signin()
 
