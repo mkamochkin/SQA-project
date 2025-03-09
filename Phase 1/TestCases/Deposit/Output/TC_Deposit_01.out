@@ -1,0 +1,22 @@
+Welcome! Please select login type: (standard or admin)
+Welcome admin
+Please enter which transaction you would like to do:
+withdrawal
+transfer
+paybill
+deposit
+create
+delete
+disable
+changeplan
+logout
+Enter transaction type: Enter the account holder's name:
+CBA.txt file not found.
+Account not found for name: john doe
+Enter the account holder's name:
+CBA.txt file not found.
+Account not found for name: 10
+Enter the account holder's name:
+CBA.txt file not found.
+Account not found for name: logout
+Enter the account holder's name:
