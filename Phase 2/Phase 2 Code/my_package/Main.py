@@ -32,16 +32,15 @@ Date: [Date]
 """
 
 from User import User
-from Transactions import getTransactionInput  # import the transaction input function from Transactions.py
+from Transactions import getTransactionInput
+from Transactions import checkIfValidUser 
+from Transactions import checkIfActive
 from BAT_Serializer import BAT_Serializer
 from CBA_Serializer import CBA_Serializer
 
-backend_path = "ETF.txt"
 isAdmin = None
 
 # TODO: For now this returns True always, later add functionality to check if the provided name is valid.
-def checkIfValidUser(name):
-    return True
 
 def getTypeInput():
     global isAdmin 
@@ -65,16 +64,20 @@ def signin():
         
         if not checkIfValidUser(nameInput):
             print("This name does not match any user in the database. Please try again.")
-            getTypeInput()
+            signin()  # Restart sign in
+            return
+        elif not checkIfActive(nameInput):
+            print("This account is disabled or deleted and cannot be used.")
+            print("Please try again with another account!")
+            signin()  # Restart sign in
+            return
+
         print("Welcome " + nameInput + "!")
-        
         print("Please enter which transaction you would like to do:")
-        # Listing available transactions for standard users
         print("withdrawal\ntransfer\npaybill\ndeposit\nlogout")
     else:
         print("Welcome admin")
         print("Please enter which transaction you would like to do:")
-        # Listing available transactions for admin users
         print("withdrawal\ntransfer\npaybill\ndeposit\ncreate\ndelete\ndisable\nchangeplan\nlogout")
 
     # Now call the transaction input function from Transactions.py,
