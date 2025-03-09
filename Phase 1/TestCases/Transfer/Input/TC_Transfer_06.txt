@@ -1,6 +1,10 @@
-login
-standard
+admin
 transfer
-John Smith
-ghfdfsdgsddfs
+John Doe
+00001
+99999
+John Doe
+00001
+00002
+10
 logout

@@ -1,6 +1,19 @@
-Welcome to the banking system
-Enter session type
-Standard session type selected. Welcome John.
-Currently logged and transfering. Please enter the account number from which the money will be transferred from:
-Please enter the account number to which the money will be transferred to:
+Welcome! Please select login type: (standard or admin)
+Standard session type selected. Please enter your name:
+Welcome John Doe!
+Please enter which transaction you would like to do:
+withdrawal
+transfer
+paybill
+deposit
+logout
+Enter transaction type:
+Enter your source account number:
+Enter the destination account number:
+Enter the amount to transfer:
 Transfer successful!
+Enter transaction type:
+Logging out. Processing temporary transactions...
+BAT transactions have been saved to BAT.txt
+CBA records have been updated in CBA.txt
+Logged out.

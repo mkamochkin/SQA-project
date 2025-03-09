@@ -1,6 +1,7 @@
-login
 standard
+John Doe
 transfer
-John Smith
-22222
+00001
+00002
+10
 logout

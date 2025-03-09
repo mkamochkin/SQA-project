@@ -1,8 +1,9 @@
-login
 standard
-John Smith
+John Doe
 paybill
-12345
+00001
+GI
+00001
 EC
-150
+10
 logout

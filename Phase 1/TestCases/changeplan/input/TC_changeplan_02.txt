@@ -1,8 +1,5 @@
-login
-User1
+admin
 changeplan
 John Doe
-1234567
-SP
-NP
+00001
 logout

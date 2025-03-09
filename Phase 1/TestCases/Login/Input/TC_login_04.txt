@@ -1,2 +1,4 @@
-create
+standard
+John Doe
+delete 
 logout

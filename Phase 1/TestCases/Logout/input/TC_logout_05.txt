@@ -1,8 +1,3 @@
-login  
-admin  
-logout  
-changeplan  
-John Doe  
-1234567  
-SP  
-NP  
+standard
+John Doe
+logout

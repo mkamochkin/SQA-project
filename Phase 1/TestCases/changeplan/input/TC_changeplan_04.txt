@@ -1,8 +1,7 @@
-login
 admin
 changeplan
-Alice Smith
-9876543
-SP
-NP
+Invalid Name
+1234567
+John Doe 
+00001
 logout
