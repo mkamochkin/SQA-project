@@ -123,6 +123,36 @@ class Transactions:
         self.accountNumber, self.accountHolderName, self.status, self.balance = \
             CBA_Parser.parse_line(self.getRecordLineFromNumber(self.inputNumber))
         
+    def generateUniqueAccountNumber(self):
+        """
+        Generate a new unique 5-digit account number by scanning the permanent CBA file.
+        Returns:
+            A string representing the new account number (5 digits, zero-padded), or None if none can be generated.
+        """
+        existing_numbers = set()
+        try:
+            with open(self.perm_cba_file, "r") as f:
+                for line in f:
+                    acct_num = line[0:5]
+                    try:
+                        existing_numbers.add(int(acct_num))
+                    except ValueError:
+                        continue  # skip malformed lines
+        except FileNotFoundError:
+            # No permanent file exists, so assume no accounts yet.
+            pass
+
+        if existing_numbers:
+            new_number = max(existing_numbers) + 1
+        else:
+            new_number = 1
+
+        if new_number > 99999:
+            print("Error: Maximum number of accounts reached.")
+            return None
+
+        return str(new_number).zfill(5)
+        
     # Transaction methods:
     def withdraw(self):
         if self.isAdmin:
@@ -483,8 +513,58 @@ class Transactions:
 
 
     def create(self):
-        print("Create not implemented yet.")
+        # This is a privileged transaction: only allowed in admin mode.
+        if not self.isAdmin:
+            print("Privileged transaction denied for standard users.")
+            getTransactionInput(self.isAdmin)
+            return
+
+        # Ask for the new account holder's name.
+        print("Enter the new account holder's name (max 20 characters):")
+        name = input().strip()
+        if len(name) > 20:
+            print("Account holder's name must be at most 20 characters. Try again.")
+            self.create()
+            return
+
+        # Ask for the initial balance.
+        print("Enter the initial balance for the new account (max $99999.99):")
+        balance_str = input().strip()
+        try:
+            initial_balance = float(balance_str)
+        except ValueError:
+            print("Invalid balance entered. Try again.")
+            self.create()
+            return
+
+        if initial_balance < 0 or initial_balance > 99999.99:
+            print("Initial balance must be between 0 and 99999.99. Try again.")
+            self.create()
+            return
+
+        # Generate a unique account number.
+        new_account_number = self.generateUniqueAccountNumber()
+        if new_account_number is None:
+            # Error message already printed in generateUniqueAccountNumber.
+            return
+
+        # Record the creation transaction in BAT (transaction code 05).
+        # The amount field contains the initial balance.
+        BATString = BAT_Serializer.serialize(5, name, new_account_number, balance_str, "XX")
+        with open(self.temp_bat_file, "a") as temp_bat:
+            temp_bat.write(BATString)
+
+        # Create the new account record with status "A" (active).
+        CBAString = CBA_Serializer.serialize(new_account_number, name, "A", initial_balance)
+        # Write the new account record to the temporary CBA file,
+        # so it won't be available for transactions in this session.
+        with open(self.temp_cba_file, "a") as temp_cba:
+            temp_cba.write(CBAString)
+
+        print("New account created successfully with account number " + new_account_number + ".")
+        print("Note: This account will not be available for transactions in this session.")
         getTransactionInput(self.isAdmin)
+
     
     def logout(self):
         print("Logging out. Processing temporary transactions...")
