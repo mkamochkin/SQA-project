@@ -1,7 +1,6 @@
-login
 standard
-John Smith
+John Doe
 deposit
-12345
-150
+00001
+10
 logout

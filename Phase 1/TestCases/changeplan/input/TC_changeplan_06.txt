@@ -1,8 +1,7 @@
-login  
-admin  
-changeplan  
-Charlie Brown  
-1357902  
-NP  
-SP  
-logout  
+admin
+changeplan
+Invalid Name
+1234567
+John Doe 
+00001
+logout

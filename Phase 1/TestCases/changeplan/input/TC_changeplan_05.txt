@@ -1,8 +1,7 @@
-login
 admin
 changeplan
-Bob Johnson
-2468013
-NP 
-SP 
+Invalid Name
+1234567
+John Doe 
+00001
 logout

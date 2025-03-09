@@ -1,5 +1,7 @@
-login
 admin
 paybill
 John Doe
+00001
+EC
+10
 logout

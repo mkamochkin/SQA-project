@@ -1,7 +1,6 @@
-login
 standard
+John Doe
 withdrawal
-12345
-300
-logout
+00001
+1
 logout

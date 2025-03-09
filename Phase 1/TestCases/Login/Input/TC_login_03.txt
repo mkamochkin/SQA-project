@@ -1,6 +1,3 @@
-login
-admin
-login
 standard
-vedant
+John Doe
 logout

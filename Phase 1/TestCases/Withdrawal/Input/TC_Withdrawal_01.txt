@@ -1,5 +1,5 @@
-login
 admin
-withdraw
+withdrawal
 John Doe
+1
 logout

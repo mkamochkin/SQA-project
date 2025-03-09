@@ -1,6 +1,3 @@
-login
 standard
-Bob
-withdraw
-10000
+John Doe
 logout

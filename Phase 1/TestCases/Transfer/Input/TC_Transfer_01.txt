@@ -1,5 +1,7 @@
-login
-admin
+standard
+John Doe
 transfer
-Bob Smith
+00001
+00002
+10
 logout

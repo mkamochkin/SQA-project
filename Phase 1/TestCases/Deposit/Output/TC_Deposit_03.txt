@@ -1,4 +1,18 @@
-Please enter session type:
-Standard session type selected. Welcome John.
-Please enter account number:
-Account verified.
+Welcome! Please select login type: (standard or admin)
+Standard session type selected. Please enter your name:
+Welcome John Doe!
+Please enter which transaction you would like to do:
+withdrawal
+transfer
+paybill
+deposit
+logout
+Enter transaction type:
+Enter your account number:
+How much money do you want to deposit?
+Deposit successful! Your new balance is $120.0
+Enter transaction type:
+Logging out. Processing temporary transactions...
+BAT transactions have been saved to BAT.txt
+CBA records have been updated in CBA.txt
+Logged out.

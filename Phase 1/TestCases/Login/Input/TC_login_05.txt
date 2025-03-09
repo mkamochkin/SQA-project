@@ -1,5 +1,3 @@
-login
 standard
-Bob
-create
+John Doe
 logout

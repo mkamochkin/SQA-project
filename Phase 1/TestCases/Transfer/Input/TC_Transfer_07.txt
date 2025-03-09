@@ -1,7 +1,11 @@
-login
-standard
+admin
 transfer
-John Smith
-22222
-2000
+John Doe
+00001
+00002
+5000
+John Doe
+00001
+00002
+10
 logout

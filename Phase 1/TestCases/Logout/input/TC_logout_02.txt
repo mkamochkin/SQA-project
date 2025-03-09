@@ -1,5 +1,3 @@
-login  
-admin  
-logout  
-deposit 100  
-withdraw 50  
+standard
+John Doe
+logout
