@@ -1,0 +1,30 @@
+==== Running TC_create_01 (Mon Mar 10 00:51:11 EDT 2025) ====
+spawn python3 /mnt/c/SQA project/SQA-project/Phase 2/Phase 2 Code/my_package/Main.py /mnt/c/SQA project/SQA-project/CBA.txt /tmp/TC_create_01.atf
+admincreatenew user300logoutadmin
+Welcome! Please select login type: (standard or admin)
+Welcome admin
+Please enter which transaction you would like to do:
+withdrawal
+transfer
+paybill
+deposit
+create
+delete
+disable
+changeplan
+logout
+Enter transaction type:
+create
+Enter the new account holder's name (max 20 characters):
+new user
+Enter the initial balance for the new account (max $99999.99):
+300
+New account created successfully with account number 00032.
+Note: This account will not be available for transactions in this session.
+Enter transaction type:
+logout
+Logging out. Processing temporary transactions...
+BAT transactions have been saved to BAT.txt
+CBA records have been updated in CBA.txt
+Logged out.
+==== End of TC_create_01 ====

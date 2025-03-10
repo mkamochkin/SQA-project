@@ -1,0 +1,31 @@
+==== Running TC_Paybill_01 (Mon Mar 10 00:47:19 EDT 2025) ====
+spawn python3 /mnt/c/SQA project/SQA-project/Phase 2/Phase 2 Code/my_package/Main.py /mnt/c/SQA project/SQA-project/CBA.txt /tmp/TC_Paybill_01.atf
+adminpaybillJohn Doe00001EC10logoutadmin
+Welcome! Please select login type: (standard or admin)
+Welcome admin
+Please enter which transaction you would like to do:
+withdrawal
+transfer
+paybill
+deposit
+create
+delete
+disable
+changeplan
+logout
+Enter transaction type:
+paybill
+Enter the account holder's name:
+John Doe
+Enter the account number:
+00001
+Enter the company to pay the bill for:
+EC
+Enter the amount to pay:
+10
+Bill payment would cause a negative balance. Denied!
+Enter the account holder's name:
+logout
+Source account not found for name: logout
+Enter the account holder's name:
+==== End of TC_Paybill_01 ====

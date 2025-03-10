@@ -19,15 +19,15 @@ BAT_FILE="$PROJECT_ROOT/Phase 3/BAT.txt"
 
 # Define the test categories (should match your folder names under Phase 1/TestCases)
 CATEGORIES=(
-  "Login"
-  "Logout"
-  "Withdrawal"
-  "Deposit"
-  "Transfer"
-  "Paybill"
-  #"Create"
-  #"Delete"
-  #"Disable"
+  #"Login"
+  #"Logout"
+  #"Withdrawal"
+  #"Deposit"
+  #"Transfer"
+  #"Paybill"
+  "Create"
+  "Delete"
+  "Disable"
   "changeplan"
 )
 
@@ -59,7 +59,7 @@ for category in "${CATEGORIES[@]}"; do
     [ -f "$input_file" ] || continue
     base_name="$(basename "$input_file" .txt)"
     # Create an output folder for this test case (e.g., TC_Deposit_01_TestOutput)
-    TEST_OUTPUT_DIR="$CATEGORY_OUTPUT_DIR/TC_${base_name}_TestOutput"
+    TEST_OUTPUT_DIR="$CATEGORY_OUTPUT_DIR/${base_name}_TestOutput"
     mkdir -p "$TEST_OUTPUT_DIR"
 
     # File to store the full transcript (interleaved input and output)
