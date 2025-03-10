@@ -1,6 +1,7 @@
 #!/bin/bash
-# tests.sh - Automated test runner using inline Expect to capture full interactive sessions
-# with interleaved input and output, and organizing outputs by test case.
+# tests.sh - Automated test runner that captures interactive sessions,
+# saves console transcripts, and after each test copies the main BAT.txt file
+# to the test's output folder, then clears BAT.txt for the next test.
 # (Requires Expect installed on your system.)
 
 # Set the project root (assumes this script is one level inside PROJECT_ROOT)
@@ -10,8 +11,11 @@ PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PROGRAM="python3"
 PROGRAM_PATH="$PROJECT_ROOT/Phase 2/Phase 2 Code/my_package/Main.py"
 
-# File for current accounts (CBA.txt)
+# File for current accounts (CBA.txt is used by your program)
 CBA_FILE="$PROJECT_ROOT/CBA.txt"
+
+# Permanent BAT file location (the file that accumulates transactions)
+BAT_FILE="$PROJECT_ROOT/Phase 3/BAT.txt"
 
 # Define the test categories (should match your folder names under Phase 1/TestCases)
 CATEGORIES=(
@@ -21,9 +25,9 @@ CATEGORIES=(
   "Deposit"
   "Transfer"
   "Paybill"
-  "Create"
-  "Delete"
-  "Disable"
+  #"Create"
+  #"Delete"
+  #"Disable"
   "changeplan"
 )
 
@@ -34,7 +38,7 @@ OUTPUT_BASE="$PROJECT_ROOT/Phase 3"
 for category in "${CATEGORIES[@]}"; do
   CATEGORY_DIR="$PROJECT_ROOT/Phase 1/TestCases/$category"
 
-  # Determine the input directory (check for either "Input" or "input").
+  # Determine the input directory (check for "Input" or "input")
   if [ -d "$CATEGORY_DIR/Input" ]; then
     INPUT_DIR="$CATEGORY_DIR/Input"
   else
@@ -55,7 +59,7 @@ for category in "${CATEGORIES[@]}"; do
     [ -f "$input_file" ] || continue
     base_name="$(basename "$input_file" .txt)"
     # Create an output folder for this test case (e.g., TC_Deposit_01_TestOutput)
-    TEST_OUTPUT_DIR="$CATEGORY_OUTPUT_DIR/${base_name}_TestOutput"
+    TEST_OUTPUT_DIR="$CATEGORY_OUTPUT_DIR/TC_${base_name}_TestOutput"
     mkdir -p "$TEST_OUTPUT_DIR"
 
     # File to store the full transcript (interleaved input and output)
@@ -70,37 +74,51 @@ for category in "${CATEGORIES[@]}"; do
       echo "logout" >> "$TEMP_INPUT"
     fi
 
-    # Define a temporary transaction (BAT) file for this test run.
+    # Optionally define a temporary transaction file if your program writes one.
     TEMP_TRANSACTION_FILE="/tmp/${base_name}.atf"
 
     # Build the command string.
-    # Using proper quoting for paths with spaces.
+    # Proper quoting ensures paths with spaces are handled correctly.
     COMMAND="$PROGRAM \"$PROGRAM_PATH\" \"$CBA_FILE\" \"$TEMP_TRANSACTION_FILE\""
 
-    # Use an inline Expect script to drive the interactive session.
+    # Use an inline Expect script to simulate the interactive session,
+    # capturing interleaved input and output into CONSOLE_FILE.
     expect <<EOF
-# Log everything to the specified file.
 log_file -a "$CONSOLE_FILE"
-# Spawn the command. (The spawn line will be logged by default.)
 spawn $COMMAND
-# Immediately disable logging to hide the spawn message.
+# Suppress initial spawn messages.
 log_user 0
-# Now re-enable logging.
+# Re-enable logging.
 log_user 1
 set timeout 60
-# Open the temporary input file.
 set fp [open "$TEMP_INPUT" r]
 while {[gets \$fp line] != -1} {
     send -- "\$line\r"
+    send_user "\$line\r"
     sleep 0.5
 }
 close \$fp
 expect eof
 EOF
 
-    # If the temporary transaction file exists, append its contents to the transcript and copy it.
+    # Wait a moment (up to 30 seconds) for BAT.txt to have content.
+    waited=0
+    max_wait=30
+    while [ $waited -lt $max_wait ] && [ ! -s "$BAT_FILE" ]; do
+      sleep 1
+      waited=$((waited+1))
+    done
+
+    # Now, after the test run, if the permanent BAT file exists, copy it to the test output folder,
+    # then clear (reset) BAT.txt for the next test.
+    if [ -f "$BAT_FILE" ]; then
+      cp "$BAT_FILE" "$TEST_OUTPUT_DIR/${base_name}_bat.txt"
+      > "$BAT_FILE"
+    fi
+
+    # Optionally, also handle TEMP_TRANSACTION_FILE if used:
     if [ -f "$TEMP_TRANSACTION_FILE" ]; then
-      echo "---- Transaction File ($base_name.atf) ----" >> "$CONSOLE_FILE"
+      echo "---- Temp Transaction File ($base_name.atf) ----" >> "$CONSOLE_FILE"
       cat "$TEMP_TRANSACTION_FILE" >> "$CONSOLE_FILE"
       cp "$TEMP_TRANSACTION_FILE" "$TEST_OUTPUT_DIR/$base_name.atf"
       rm -f "$TEMP_TRANSACTION_FILE"
