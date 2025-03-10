@@ -1,5 +1,4 @@
-login
 standard
-Bob 
+John Doe
 create
 logout

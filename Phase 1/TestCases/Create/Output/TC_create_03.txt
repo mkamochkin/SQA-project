@@ -1,1 +1,24 @@
-Username exceeds the maximum twenty characters threshold. Please stay within the threshold.
+Welcome! Please select login type: (standard or admin)
+Welcome admin
+Please enter which transaction you would like to do:
+withdrawal
+transfer
+paybill
+deposit
+create
+delete
+disable
+changeplan
+logout
+Enter transaction type:
+Enter the new account holder's name (max 20 characters):
+Account holder's name must be at most 20 characters. Try again.
+Enter the new account holder's name (max 20 characters):
+Enter the initial balance for the new account (max $99999.99):
+New account created successfully with account number 00018.
+Note: This account will not be available for transactions in this session.
+Enter transaction type:
+Logging out. Processing temporary transactions...
+BAT transactions have been saved to BAT.txt
+CBA records have been updated in CBA.txt
+Logged out.

@@ -1,7 +1,5 @@
-login
-standard
-Bob Smith
+admin
 delete
-Bob Smith
-11111
+b
+00016
 logout

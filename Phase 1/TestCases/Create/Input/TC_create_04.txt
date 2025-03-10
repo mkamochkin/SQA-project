@@ -1,7 +1,7 @@
-login
 admin
 create
-Bob Smith
-39857234905.0
+new user
+1000000
+new user
+300
 logout
-
