@@ -828,10 +828,10 @@ def checkIfActive(name):
 
 # Functions to handle transaction input and execution:
 def getTransactionInput(isAdmin):
-    transactionInput = input("Enter transaction type: ").strip().lower()
+    print("Enter transaction type:")
+    transactionInput = input().strip().lower()
     runTransaction(transactionInput, isAdmin)
-
-
+    
 def runTransaction(transactionInput, isAdmin):
     transaction = Transactions(isAdmin)
     if isAdmin:
