@@ -1,0 +1,20 @@
+==== Running TC_login_02 (Sun Mar  9 22:54:32 EDT 2025) ====
+spawn python3 /mnt/c/SQA project/SQA-project/Phase 2/Phase 2 Code/my_package/Main.py /mnt/c/SQA project/SQA-project/CBA.txt /tmp/TC_login_02.atf
+standard
+Welcome! Please select login type: (standard or admin)
+Standard session type selected. Please enter your name:
+John Doe
+Welcome John Doe!
+Please enter which transaction you would like to do:
+withdrawal
+transfer
+paybill
+deposit
+logout
+Enter transaction type:
+logout
+Logging out. Processing temporary transactions...
+No BAT transactions to process.
+CBA records have been updated in CBA.txt
+Logged out.
+==== End of TC_login_02 ====

@@ -1,0 +1,34 @@
+==== Running TC_delete_04 (Sun Mar  9 22:57:08 EDT 2025) ====
+spawn python3 /mnt/c/SQA project/SQA-project/Phase 2/Phase 2 Code/my_package/Main.py /mnt/c/SQA project/SQA-project/CBA.txt /tmp/TC_delete_04.atf
+admin
+Welcome! Please select login type: (standard or admin)
+Welcome admin
+Please enter which transaction you would like to do:
+withdrawal
+transfer
+paybill
+deposit
+create
+delete
+disable
+changeplan
+logout
+Enter transaction type:
+delete
+Enter the account holder's name:
+invalid name
+Enter the account number:
+invalid number
+Account not found for name: invalid name
+Enter the account holder's name:
+b
+Enter the account number:
+00016
+Account is already deleted. No further transactions will be accepted for this account.
+Enter transaction type:
+logout
+Logging out. Processing temporary transactions...
+BAT transactions have been saved to BAT.txt
+CBA records have been updated in CBA.txt
+Logged out.
+==== End of TC_delete_04 ====

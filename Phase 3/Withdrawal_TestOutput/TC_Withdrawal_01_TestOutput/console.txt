@@ -1,0 +1,29 @@
+==== Running TC_Withdrawal_01 (Sun Mar  9 22:54:51 EDT 2025) ====
+spawn python3 /mnt/c/SQA project/SQA-project/Phase 2/Phase 2 Code/my_package/Main.py /mnt/c/SQA project/SQA-project/CBA.txt /tmp/TC_Withdrawal_01.atf
+admin
+Welcome! Please select login type: (standard or admin)
+Welcome admin
+Please enter which transaction you would like to do:
+withdrawal
+transfer
+paybill
+deposit
+create
+delete
+disable
+changeplan
+logout
+Enter transaction type:
+withdrawal
+Enter the source account holder's name:
+John Doe
+How much money do you want to withdraw from john doe?
+1
+Transaction successful!
+Enter transaction type:
+logout
+Logging out. Processing temporary transactions...
+BAT transactions have been saved to BAT.txt
+CBA records have been updated in CBA.txt
+Logged out.
+==== End of TC_Withdrawal_01 ====
