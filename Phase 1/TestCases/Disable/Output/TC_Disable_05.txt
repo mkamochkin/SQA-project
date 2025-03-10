@@ -1,4 +1,24 @@
-Welcome to the banking system
-Enter session type
-Standard session type selected. 
-Your account has been disabled. You cannot make any transactions!
+Welcome! Please select login type: (standard or admin)
+Welcome admin
+Please enter which transaction you would like to do:
+withdrawal
+transfer
+paybill
+deposit
+create
+delete
+disable
+changeplan
+logout
+Enter transaction type:
+Enter the account holder's name:
+Enter the account number:
+Account number does not match the account holder's record. Try again.
+Enter the account holder's name:
+Enter the account number:
+Account is already disabled. No further transactions will be accepted for this account.
+Enter transaction type:
+Logging out. Processing temporary transactions...
+BAT transactions have been saved to BAT.txt
+CBA records have been updated in CBA.txt
+Logged out.

@@ -1,0 +1,21 @@
+Welcome! Please select login type: (standard or admin)
+Welcome admin
+Please enter which transaction you would like to do:
+withdrawal
+transfer
+paybill
+deposit
+create
+delete
+disable
+changeplan
+logout
+Enter transaction type:
+Enter the account holder's name:
+How much money do you want to deposit into John Doe?
+Deposit successful! Your new balance is $110.0
+Enter transaction type:
+Logging out. Processing temporary transactions...
+BAT transactions have been saved to BAT.txt
+CBA records have been updated in CBA.txt
+Logged out.

@@ -1,6 +1,5 @@
-login
 admin
-Jeff Brown
 disable
-Bob
+David Clark
+00009
 logout

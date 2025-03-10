@@ -1,9 +1,4 @@
-login
-admin
+standard
+John Doe
 create
-Bob Smith
-1000.0
-deposit
-3232.0
-50
 logout

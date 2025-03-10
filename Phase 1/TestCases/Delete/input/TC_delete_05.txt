@@ -1,9 +1,5 @@
-login
 admin
 delete
-Bob Smith
-1000.0
-deposit
-3232.0
-50
+b
+00016
 logout

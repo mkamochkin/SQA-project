@@ -1,6 +1,7 @@
-login
 admin
 delete
-Bob Smith
-72672
+invalid name
+invalid number
+b
+00016
 logout

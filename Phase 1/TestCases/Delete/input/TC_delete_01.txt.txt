@@ -1,6 +1,4 @@
-login
-admin
+standard
+John Doe
 delete
-Bob Smith
-11111
 logout

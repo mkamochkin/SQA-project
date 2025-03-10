@@ -1,7 +1,6 @@
-login
 admin
 create
 THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG
-501
+new user
+300
 logout
-
